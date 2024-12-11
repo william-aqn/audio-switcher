@@ -10,6 +10,6 @@ Available playback devices:
 {0.0.1.00000000}.{0edc5866-1c05-47c7-843b-b9110f31771d} - Mic1 (USB Audio Device)
 ```
 
-After change ID in [**select_main.cmd**](select_main.cmd) and [**select_head.cmd**](select_main.cmd)
+After change ID in [**select_main.cmd**](select_main.cmd) and [**select_head.cmd**](select_head.cmd)
 
 Lib: https://github.com/frgnca/AudioDeviceCmdlets
