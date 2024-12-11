@@ -1,3 +1,6 @@
+# Audio switcher for Windows devices by DCRM 
+# v 1.0
+
 $PathRun = $PSCommandPath | Split-Path -Parent
 
 Write-Host "Current location [$PathRun]"
@@ -26,12 +29,15 @@ if (-not (Get-Module -ListAvailable -Name AudioDeviceCmdlets)) {
     # Check if file already exists
     if (Test-Path $modulePath) {
         Write-Host "AudioDeviceCmdlets module exists."
-    } else {
+    }
+    else {
         # Download the module
         Invoke-WebRequest -Uri $moduleUrl -OutFile $modulePath
         Write-Host "AudioDeviceCmdlets module downloaded successfully."
     }
 }
+
+Clear-Host
 
 # Import the module
 Import-Module "$(Get-Location)\AudioDeviceCmdlets.dll" -ErrorAction Stop
@@ -60,6 +66,19 @@ if (-not $targetDevice) {
     exit 1
 }
 
+# Set communication mode
+$AdditionalParam = if ($args.Count -gt 1) { $args[1] } else { "" }
+
+Write-Host "Active device switched to: $($targetDevice.Name) $AdditionalParam"
 # Set the specified device
-Set-AudioDevice -ID $targetDevice.Id -DefaultOnly
-Write-Host "Active device switched to: $($targetDevice.Name)"
+switch ($AdditionalParam) {
+    default {
+        Set-AudioDevice -Id $targetDevice.Id
+    }
+    "-DefaultOnly" {
+        Set-AudioDevice -Id $targetDevice.Id -DefaultOnly
+    }
+    "-CommunicationOnly" {
+        Set-AudioDevice -Id $targetDevice.Id -CommunicationOnly
+    }
+}

@@ -1,4 +1,4 @@
-# audio-switcher
+# Audio switcher for Windows devices
 
 Run **show_devices.cmd**
 
