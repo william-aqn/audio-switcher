@@ -56,13 +56,14 @@ if ($args.Count -eq 0) {
     exit 0
 }
 
-$TargetDeviceId = $args[0]
+$TargetDevice = $args[0]
 
 # Check if the specified device ID exists
-$targetDevice = $devices | Where-Object { $_.Id -eq $TargetDeviceId }
+$targetDevice = $devices | Where-Object { $_.Id -eq $TargetDevice -or $_.Name -eq $TargetDevice }
 if (-not $targetDevice) {
-    Write-Host "Device with ID '$TargetDeviceId' not found in the list of available devices."
+    Write-Host "Device with ID or name '$TargetDevice' not found in the list of available devices."
     Show-PlaybackDevices -DeviceList $devices
+    Pause
     exit 1
 }
 
